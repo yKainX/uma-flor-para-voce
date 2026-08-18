@@ -72,12 +72,12 @@ export default function Home() {
           </div>
 
           <div className={`message ${showWords ? "is-visible" : ""}`}>
-            <p className="love-note">eu te amo.</p>
+            <p className="love-note">Eu te amo!</p>
             <p className="letter">
               N precisava ser uma data especial. Eu só queria te lembrar que vc
               deixa meus dias mais bonitos e que ter vc na minha vida é uma das
               coisas que eu mais amo. Espero que essa flor consiga arrancar pelo
-              menos um sorrisinho seu hoje. <span>♥</span>
+              menos um sorrisinho seu... Você é unica! <span>♥</span>
             </p>
             <button className="replay" onClick={replay}>ver de novo ↻</button>
           </div>
