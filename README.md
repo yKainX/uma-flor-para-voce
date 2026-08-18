@@ -1,10 +1,10 @@
-# Uma Flor para Você 🌸
+# Uma flor para uma flor 🌸
 
 Uma pequena surpresa interativa: uma flor cresce lentamente e revela uma mensagem carinhosa.
 
 ## Ver o site
 
-**[Abrir Uma Flor para Você](https://uma-flor-para-voce.kainanbarretotv.chatgpt.site)**
+**[Abrir pelo GitHub Pages](https://ykainx.github.io/uma-flor-para-voce/)**
 
 ## Rodar no computador
 
@@ -17,7 +17,7 @@ npm run dev
 
 ## Personalização
 
-Os textos ficam em `app/page.tsx` e o visual/animações em `app/globals.css`.
+Os textos ficam em `app/page.tsx` e o visual/animações em `app/globals.css`. A versão estática publicada pelo GitHub Pages fica em `docs/index.html`.
 
 ---
 
