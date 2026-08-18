@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fff9f6">
+  <meta name="description" content="Uma pequena surpresa feita com carinho.">
+  <title>Uma flor para uma flor</title>
+  <style>
+:root { --ink:#4b3040; --rose:#d66c8d; --rose-deep:#b8496c; --cream:#fff9f6; }
+* { box-sizing:border-box; }
+html,body { min-height:100%; }
+body { margin:0; color:var(--ink); background:var(--cream); font-family:Georgia,"Times New Roman",serif; }
+button { font:inherit; }
+
+.experience { position:relative; min-height:100svh; overflow:hidden; display:grid; place-items:center; isolation:isolate; background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.96),transparent 42%),linear-gradient(145deg,#fffdfb 0%,#fff3f3 52%,#f9ecef 100%); }
+.grain { position:absolute; inset:0; z-index:-1; opacity:.22; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E"); }
+.ambient { position:absolute; border-radius:50%; filter:blur(4px); z-index:-2; opacity:.5; }
+.ambient-one { width:48vw; height:48vw; top:-23vw; right:-12vw; background:#f6c9d5; }
+.ambient-two { width:42vw; height:42vw; bottom:-26vw; left:-12vw; background:#e8d6ca; }
+
+.intro { width:min(620px,calc(100% - 40px)); text-align:center; animation:introIn 1.1s cubic-bezier(.22,1,.36,1) both; }
+.tiny-heart { display:block; color:var(--rose); font-size:1rem; margin-bottom:20px; animation:pulse 2s ease-in-out infinite; }
+.eyebrow { margin:0 0 14px; font-family:Arial,Helvetica,sans-serif; font-size:.69rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:#9b7584; }
+.intro h1 { margin:0 auto 42px; max-width:580px; font-size:clamp(2.65rem,9vw,5rem); line-height:.98; letter-spacing:-.045em; font-weight:400; }
+.start-button { display:inline-flex; gap:22px; align-items:center; border:1px solid rgba(106,57,78,.18); border-radius:999px; padding:13px 16px 13px 23px; color:var(--ink); background:rgba(255,255,255,.58); box-shadow:0 12px 40px rgba(116,70,88,.09); cursor:pointer; font-family:Arial,Helvetica,sans-serif; font-size:.79rem; letter-spacing:.04em; transition:transform .25s ease,background .25s ease; }
+.start-button:hover { transform:translateY(-2px); background:#fff; }
+.start-button:focus-visible,.replay:focus-visible { outline:2px solid var(--rose); outline-offset:4px; }
+.button-arrow { display:grid; place-items:center; width:31px; aspect-ratio:1; color:white; border-radius:50%; background:var(--rose); }
+
+.garden { position:absolute; top:0; bottom:auto; left:50%; width:min(760px,100%); height:100%; margin:0; transform:translateX(-50%); align-self:start; justify-self:start; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px 22px 32px; }
+.growing-copy { position:absolute; top:max(32px,7vh); margin:0; font-family:Arial,Helvetica,sans-serif; font-size:.68rem; letter-spacing:.18em; color:#a47d8b; animation:copyLife 7.8s ease both; }
+.flower-scene { position:relative; width:250px; height:410px; margin-top:30px; transition:transform 1.4s cubic-bezier(.22,1,.36,1); }
+.ground-shadow { position:absolute; width:92px; height:12px; left:79px; bottom:4px; border-radius:50%; background:rgba(68,65,58,.12); filter:blur(7px); opacity:0; animation:shadowIn .8s 2.5s ease forwards; }
+.stem { position:absolute; width:5px; height:260px; left:123px; bottom:10px; border-radius:999px; background:linear-gradient(90deg,#5b785d,#91a786 58%,#5d785d); transform-origin:bottom; transform:scaleY(0); animation:stemGrow 2.8s .35s cubic-bezier(.32,.01,.22,1) forwards; }
+.stem::after { content:""; position:absolute; inset:0; border-radius:inherit; background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent); }
+.leaf { position:absolute; width:74px; height:40px; background:linear-gradient(145deg,#91a98b,#627f67); opacity:0; transform:scale(0); box-shadow:inset 0 0 0 1px rgba(255,255,255,.2); }
+.leaf::after { content:""; position:absolute; width:55px; height:1px; top:21px; background:rgba(244,245,221,.5); }
+.leaf-left { left:-67px; bottom:89px; border-radius:90% 6% 90% 8%; transform-origin:right bottom; rotate:16deg; animation:leafLeft .9s 1.75s cubic-bezier(.2,.8,.2,1) forwards; }
+.leaf-left::after { right:0; rotate:23deg; transform-origin:right; }
+.leaf-right { right:-68px; bottom:145px; border-radius:6% 90% 8% 90%; transform-origin:left bottom; rotate:-14deg; animation:leafRight .9s 2.2s cubic-bezier(.2,.8,.2,1) forwards; }
+.leaf-right::after { left:0; rotate:-23deg; transform-origin:left; }
+.flower-head { position:absolute; width:132px; height:132px; left:59px; top:12px; transform:scale(.1) rotate(-8deg); opacity:0; animation:headRise .7s 2.85s ease forwards,flowerSway 5s 5.1s ease-in-out infinite; }
+.petal { --angle:0deg; --delay:3.1s; position:absolute; width:47px; height:72px; left:42px; top:-3px; border-radius:70% 70% 48% 48%; transform-origin:24px 69px; transform:rotate(var(--angle)) scale(.05); opacity:0; background:linear-gradient(155deg,#f8c4d1 2%,#df7899 63%,#c95f82); box-shadow:inset 7px 4px 13px rgba(255,255,255,.24),0 4px 10px rgba(129,61,82,.07); animation:petalOpen .95s var(--delay) cubic-bezier(.17,.67,.25,1.25) forwards; }
+.petal:nth-child(3n) { background:linear-gradient(155deg,#fbd0da,#e58aa6 66%,#ce6c8c); }
+.flower-center { position:absolute; width:46px; height:46px; left:43px; top:43px; z-index:2; border-radius:50%; opacity:0; transform:scale(0); background:radial-gradient(circle at 38% 34%,#ffe6a5,#d6a04b 62%,#ae783a); box-shadow:inset 0 0 0 7px rgba(255,231,169,.22),0 3px 12px rgba(123,82,40,.16); animation:centerIn .8s 4.55s cubic-bezier(.17,.67,.25,1.3) forwards; }
+.spark { position:absolute; color:#d7a15f; opacity:0; animation:sparkle 2.4s 5.2s ease-in-out infinite; }
+.spark-one { top:68px; right:18px; font-size:15px; }
+.spark-two { top:155px; left:15px; font-size:10px; animation-delay:5.75s; }
+.spark-three { top:25px; left:43px; font-size:24px; animation-delay:6.1s; }
+
+.message { position:absolute; inset:0; z-index:5; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:28px; text-align:center; pointer-events:none; opacity:0; transform:translateY(18px); background:rgba(255,248,247,.77); backdrop-filter:blur(15px); transition:opacity 1.4s ease,transform 1.4s ease; }
+.message.is-visible { opacity:1; transform:none; pointer-events:auto; }
+.love-note { margin:0 0 25px; font-size:clamp(3.3rem,14vw,6.5rem); line-height:.9; font-style:italic; font-weight:400; letter-spacing:-.055em; color:var(--rose-deep); }
+.letter { max-width:540px; margin:0; font-family:Arial,Helvetica,sans-serif; font-size:clamp(.95rem,3.8vw,1.08rem); line-height:1.85; color:#674c58; }
+.letter span { color:var(--rose); }
+.replay { margin-top:36px; padding:8px; border:0; border-bottom:1px solid rgba(75,48,64,.25); color:#8e6d7a; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:.7rem; letter-spacing:.1em; cursor:pointer; }
+
+@keyframes introIn { from { opacity:0; transform:translateY(20px); } }
+@keyframes pulse { 50% { transform:scale(1.2); opacity:.65; } }
+@keyframes stemGrow { to { transform:scaleY(1); } }
+@keyframes shadowIn { to { opacity:1; } }
+@keyframes leafLeft { to { opacity:1; transform:scale(1); } }
+@keyframes leafRight { to { opacity:1; transform:scale(1); } }
+@keyframes headRise { to { opacity:1; transform:scale(1) rotate(0); } }
+@keyframes petalOpen { to { opacity:1; transform:rotate(var(--angle)) scale(1); } }
+@keyframes centerIn { to { opacity:1; transform:scale(1); } }
+@keyframes flowerSway { 0%,100% { rotate:-1.8deg; } 50% { rotate:1.8deg; } }
+@keyframes sparkle { 0%,100% { opacity:0; transform:scale(.4) rotate(0); } 45%,60% { opacity:.85; transform:scale(1) rotate(25deg); } }
+@keyframes copyLife { 0% { opacity:0; } 12%,73% { opacity:1; } 100% { opacity:0; } }
+
+@media (max-height:690px) { .flower-scene { transform:scale(.78); margin-top:14px; } .growing-copy { top:24px; } }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-delay:0ms!important; } .message { transition-duration:.2s; } }
+
+.hidden{display:none!important}.garden{top:0!important}.message{top:0!important}
+</style>
+</head>
+<body>
+  <main class="experience">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <div class="grain"></div>
+    <section class="intro" aria-labelledby="intro-title">
+      <span class="tiny-heart" aria-hidden="true">♥</span>
+      <p class="eyebrow">eu fiz uma coisinha pra vc</p>
+      <h1 id="intro-title">Só porque pensei em você.</h1>
+      <button class="start-button" id="start">
+        <span>toque para abrir</span><span class="button-arrow" aria-hidden="true">→</span>
+      </button>
+    </section>
+    <section class="garden hidden" aria-live="polite">
+      <p class="growing-copy">um carinho está florescendo...</p>
+      <div class="flower-scene" aria-hidden="true">
+        <div class="ground-shadow"></div>
+        <div class="stem"><div class="leaf leaf-left"></div><div class="leaf leaf-right"></div></div>
+        <div class="flower-head"><span class="petal" style="--angle:0deg;--delay:3.15s"></span><span class="petal" style="--angle:30deg;--delay:3.26s"></span><span class="petal" style="--angle:60deg;--delay:3.37s"></span><span class="petal" style="--angle:90deg;--delay:3.48s"></span><span class="petal" style="--angle:120deg;--delay:3.59s"></span><span class="petal" style="--angle:150deg;--delay:3.70s"></span><span class="petal" style="--angle:180deg;--delay:3.81s"></span><span class="petal" style="--angle:210deg;--delay:3.92s"></span><span class="petal" style="--angle:240deg;--delay:4.03s"></span><span class="petal" style="--angle:270deg;--delay:4.14s"></span><span class="petal" style="--angle:300deg;--delay:4.25s"></span><span class="petal" style="--angle:330deg;--delay:4.36s"></span><span class="flower-center"></span></div>
+        <span class="spark spark-one">✦</span><span class="spark spark-two">✦</span><span class="spark spark-three">·</span>
+      </div>
+      <div class="message">
+        <p class="love-note">eu te amo.</p>
+        <p class="letter">N precisava ser uma data especial. Eu só queria te lembrar que vc deixa meus dias mais bonitos e que ter vc na minha vida é uma das coisas que eu mais amo. Espero que essa flor consiga arrancar pelo menos um sorrisinho seu hoje. <span>♥</span></p>
+        <button class="replay" id="replay">ver de novo ↻</button>
+      </div>
+    </section>
+  </main>
+  <script>
+    const intro=document.querySelector('.intro');
+    const garden=document.querySelector('.garden');
+    const message=document.querySelector('.message');
+    let timer;
+    function begin(){
+      clearTimeout(timer);
+      message.classList.remove('is-visible');
+      intro.classList.add('hidden');
+      garden.classList.add('hidden');
+      void garden.offsetWidth;
+      garden.classList.remove('hidden');
+      timer=setTimeout(()=>message.classList.add('is-visible'),7600);
+    }
+    document.getElementById('start').addEventListener('click',begin);
+    document.getElementById('replay').addEventListener('click',begin);
+  </script>
+</body>
+</html>
