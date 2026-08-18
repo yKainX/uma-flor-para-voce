@@ -74,13 +74,13 @@ export default function Home() {
 
               <div className={`answer-list ${firstError ? "has-error" : ""}`}>
                 <button className="answer-option" onClick={() => answerIdentity(false)}>
-                  <span>A</span> Clara Maria
+                  <span>A</span> Clarinha do Grau
                 </button>
                 <button className="answer-option" onClick={() => answerIdentity(false)}>
-                  <span>B</span> Marian
+                  <span>B</span> Maria do Catarrão
                 </button>
                 <button className="answer-option" onClick={() => answerIdentity(true)}>
-                  <span>C</span> Amorzinho da vida de quem fez o site
+                  <span>C</span> Amorzinho do Kainan
                 </button>
               </div>
 
@@ -93,7 +93,7 @@ export default function Home() {
           {gateStep === 2 && (
             <div className="quiz-card quiz-enter">
               <span className="quiz-kicker">última pergunta</span>
-              <h1>Se a beleza de Maria Clara fosse definida em uma nota, qual seria?</h1>
+              <h1>Se a beleza de Maria Clara (Amorzinho do Kainan) fosse definida em uma nota, qual seria?</h1>
               <p className="quiz-lead">Escolha com cuidado.</p>
 
               <div className="note-grid">
@@ -126,7 +126,7 @@ export default function Home() {
                   <p>Nenhuma nota é capaz de definir o quão bela você é, meu amor.</p>
                   <button className="infinity-button" onClick={unlock} aria-label="Infinito">
                     <span>∞</span>
-                    <small>essa é a resposta certa</small>
+                    <small>essa é a resposta certa (O Infinito meu amor!)</small>
                   </button>
                 </div>
               )}
@@ -181,7 +181,8 @@ export default function Home() {
               N precisava ser uma data especial. Eu só queria te lembrar que vc
               deixa meus dias mais bonitos e que ter vc na minha vida é uma das
               coisas que eu mais amo. Espero que essa flor consiga arrancar pelo
-              menos um sorrisinho seu hoje. <span>♥</span>
+              menos um sorrisinho seu hoje... Você é unica, te acho incrivel!
+              OBS: Me desculpa por hoje também, vou trabalhar pra melhorar, prometo!<span>♥</span>
             </p>
             <button className="replay" onClick={replay}>ver de novo ↻</button>
           </div>
