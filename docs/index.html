@@ -1,12 +1,9 @@
 <!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#fff9f6">
-  <meta name="description" content="Uma pequena surpresa feita com carinho.">
-  <title>Uma flor para uma flor</title>
-  <style>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fff9f6"><meta name="description" content="Uma pequena surpresa feita com carinho.">
+<title>Uma flor para uma flor</title><style>
+
 :root { --ink:#4b3040; --rose:#d66c8d; --rose-deep:#b8496c; --cream:#fff9f6; }
 * { box-sizing:border-box; }
 html,body { min-height:100%; }
@@ -25,8 +22,36 @@ button { font:inherit; }
 .intro h1 { margin:0 auto 42px; max-width:580px; font-size:clamp(2.65rem,9vw,5rem); line-height:.98; letter-spacing:-.045em; font-weight:400; }
 .start-button { display:inline-flex; gap:22px; align-items:center; border:1px solid rgba(106,57,78,.18); border-radius:999px; padding:13px 16px 13px 23px; color:var(--ink); background:rgba(255,255,255,.58); box-shadow:0 12px 40px rgba(116,70,88,.09); cursor:pointer; font-family:Arial,Helvetica,sans-serif; font-size:.79rem; letter-spacing:.04em; transition:transform .25s ease,background .25s ease; }
 .start-button:hover { transform:translateY(-2px); background:#fff; }
-.start-button:focus-visible,.replay:focus-visible { outline:2px solid var(--rose); outline-offset:4px; }
+.start-button:focus-visible,.replay:focus-visible,.answer-option:focus-visible,.note-option:focus-visible,.infinity-button:focus-visible { outline:2px solid var(--rose); outline-offset:4px; }
 .button-arrow { display:grid; place-items:center; width:31px; aspect-ratio:1; color:white; border-radius:50%; background:var(--rose); }
+
+.quiz-shell { width:min(680px,calc(100% - 32px)); max-height:calc(100svh - 32px); overflow-y:auto; padding:30px clamp(20px,5vw,52px) 34px; border:1px solid rgba(115,70,88,.12); border-radius:32px; background:rgba(255,255,255,.68); box-shadow:0 28px 80px rgba(103,62,80,.10); backdrop-filter:blur(18px); scrollbar-width:none; }
+.quiz-shell::-webkit-scrollbar { display:none; }
+.quiz-progress { display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:clamp(30px,6vh,54px); font-family:Arial,Helvetica,sans-serif; font-size:.65rem; font-weight:600; letter-spacing:.17em; text-transform:uppercase; color:#a17a89; }
+.progress-count { color:var(--rose-deep); letter-spacing:.12em; }
+.quiz-card { text-align:left; }
+.quiz-enter { animation:introIn .75s cubic-bezier(.22,1,.36,1) both; }
+.quiz-kicker { display:block; margin-bottom:13px; color:var(--rose); font-family:Arial,Helvetica,sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
+.quiz-card h1 { max-width:570px; margin:0; font-size:clamp(2rem,6.2vw,3.55rem); line-height:1.04; letter-spacing:-.04em; font-weight:400; }
+.quiz-lead { margin:17px 0 28px; color:#806370; font-family:Arial,Helvetica,sans-serif; font-size:.93rem; line-height:1.65; }
+.answer-list { display:grid; gap:10px; }
+.answer-option,.note-option { border:1px solid rgba(108,67,84,.14); color:#5e4350; background:rgba(255,255,255,.63); cursor:pointer; font-family:Arial,Helvetica,sans-serif; transition:transform .22s ease,border-color .22s ease,background .22s ease,opacity .22s ease; }
+.answer-option { width:100%; display:flex; align-items:center; gap:14px; padding:13px 16px; border-radius:16px; text-align:left; font-size:.88rem; line-height:1.35; }
+.answer-option span,.note-option span { display:grid; place-items:center; flex:0 0 auto; width:29px; height:29px; border-radius:50%; color:#a75c76; background:#fbe8ee; font-size:.7rem; font-weight:700; }
+.answer-option:hover,.note-option:not(:disabled):hover { transform:translateY(-2px); border-color:rgba(195,82,121,.35); background:#fff; }
+.answer-list.has-error { animation:softShake .42s ease; }
+.quiz-feedback { min-height:20px; margin:15px 2px 0; opacity:0; color:#ae607a; font-family:Arial,Helvetica,sans-serif; font-size:.75rem; transition:opacity .25s ease; }
+.quiz-feedback.is-visible { opacity:1; }
+.note-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.note-option { min-height:82px; display:flex; align-items:center; justify-content:center; gap:8px; padding:12px 9px; border-radius:18px; font-size:1.12rem; }
+.note-option.was-tried { border-color:rgba(174,96,122,.14); opacity:.42; cursor:not-allowed; text-decoration:line-through; }
+.note-hint { min-height:22px; margin:17px 0 0; color:#a66078; text-align:center; font-family:Arial,Helvetica,sans-serif; font-size:.76rem; animation:hintIn .35s ease both; }
+.infinity-reveal { margin-top:25px; padding:23px 18px 5px; border-top:1px solid rgba(108,67,84,.11); text-align:center; animation:revealUp .8s cubic-bezier(.22,1,.36,1) both; }
+.infinity-reveal p { max-width:500px; margin:0 auto 19px; color:#704e5d; font-size:clamp(1.12rem,4vw,1.38rem); line-height:1.5; font-style:italic; }
+.infinity-button { display:inline-flex; align-items:center; gap:13px; padding:8px 18px 8px 13px; border:1px solid rgba(190,75,112,.22); border-radius:999px; color:#9f4262; background:#fff; box-shadow:0 10px 30px rgba(151,63,94,.10); cursor:pointer; transition:transform .25s ease,box-shadow .25s ease; }
+.infinity-button:hover { transform:translateY(-2px) scale(1.02); box-shadow:0 14px 35px rgba(151,63,94,.16); }
+.infinity-button span { font-size:2.4rem; line-height:.8; }
+.infinity-button small { font-family:Arial,Helvetica,sans-serif; font-size:.66rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
 
 .garden { position:absolute; top:0; bottom:auto; left:50%; width:min(760px,100%); height:100%; margin:0; transform:translateX(-50%); align-self:start; justify-self:start; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px 22px 32px; }
 .growing-copy { position:absolute; top:max(32px,7vh); margin:0; font-family:Arial,Helvetica,sans-serif; font-size:.68rem; letter-spacing:.18em; color:#a47d8b; animation:copyLife 7.8s ease both; }
@@ -68,57 +93,35 @@ button { font:inherit; }
 @keyframes flowerSway { 0%,100% { rotate:-1.8deg; } 50% { rotate:1.8deg; } }
 @keyframes sparkle { 0%,100% { opacity:0; transform:scale(.4) rotate(0); } 45%,60% { opacity:.85; transform:scale(1) rotate(25deg); } }
 @keyframes copyLife { 0% { opacity:0; } 12%,73% { opacity:1; } 100% { opacity:0; } }
+@keyframes softShake { 25% { transform:translateX(-5px); } 50% { transform:translateX(5px); } 75% { transform:translateX(-3px); } }
+@keyframes hintIn { from { opacity:0; transform:translateY(5px); } }
+@keyframes revealUp { from { opacity:0; transform:translateY(14px); } }
 
 @media (max-height:690px) { .flower-scene { transform:scale(.78); margin-top:14px; } .growing-copy { top:24px; } }
+@media (max-width:540px) { .quiz-shell { border-radius:25px; padding:25px 18px 28px; } .quiz-progress { margin-bottom:30px; } .note-grid { grid-template-columns:repeat(2,1fr); } .note-option { min-height:66px; } }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-delay:0ms!important; } .message { transition-duration:.2s; } }
 
-.hidden{display:none!important}.garden{top:0!important}.message{top:0!important}
+.hidden{display:none!important}
 </style>
-</head>
-<body>
-  <main class="experience">
-    <div class="ambient ambient-one"></div>
-    <div class="ambient ambient-two"></div>
-    <div class="grain"></div>
-    <section class="intro" aria-labelledby="intro-title">
-      <span class="tiny-heart" aria-hidden="true">♥</span>
-      <p class="eyebrow">eu fiz uma coisinha pra vc</p>
-      <h1 id="intro-title">Só porque pensei em você.</h1>
-      <button class="start-button" id="start">
-        <span>toque para abrir</span><span class="button-arrow" aria-hidden="true">→</span>
-      </button>
-    </section>
-    <section class="garden hidden" aria-live="polite">
-      <p class="growing-copy">um carinho está florescendo...</p>
-      <div class="flower-scene" aria-hidden="true">
-        <div class="ground-shadow"></div>
-        <div class="stem"><div class="leaf leaf-left"></div><div class="leaf leaf-right"></div></div>
-        <div class="flower-head"><span class="petal" style="--angle:0deg;--delay:3.15s"></span><span class="petal" style="--angle:30deg;--delay:3.26s"></span><span class="petal" style="--angle:60deg;--delay:3.37s"></span><span class="petal" style="--angle:90deg;--delay:3.48s"></span><span class="petal" style="--angle:120deg;--delay:3.59s"></span><span class="petal" style="--angle:150deg;--delay:3.70s"></span><span class="petal" style="--angle:180deg;--delay:3.81s"></span><span class="petal" style="--angle:210deg;--delay:3.92s"></span><span class="petal" style="--angle:240deg;--delay:4.03s"></span><span class="petal" style="--angle:270deg;--delay:4.14s"></span><span class="petal" style="--angle:300deg;--delay:4.25s"></span><span class="petal" style="--angle:330deg;--delay:4.36s"></span><span class="flower-center"></span></div>
-        <span class="spark spark-one">✦</span><span class="spark spark-two">✦</span><span class="spark spark-three">·</span>
-      </div>
-      <div class="message">
-        <p class="love-note">eu te amo.</p>
-        <p class="letter">N precisava ser uma data especial. Eu só queria te lembrar que vc deixa meus dias mais bonitos e que ter vc na minha vida é uma das coisas que eu mais amo. Espero que essa flor consiga arrancar pelo menos um sorrisinho seu hoje. <span>♥</span></p>
-        <button class="replay" id="replay">ver de novo ↻</button>
-      </div>
-    </section>
-  </main>
-  <script>
-    const intro=document.querySelector('.intro');
-    const garden=document.querySelector('.garden');
-    const message=document.querySelector('.message');
-    let timer;
-    function begin(){
-      clearTimeout(timer);
-      message.classList.remove('is-visible');
-      intro.classList.add('hidden');
-      garden.classList.add('hidden');
-      void garden.offsetWidth;
-      garden.classList.remove('hidden');
-      timer=setTimeout(()=>message.classList.add('is-visible'),7600);
-    }
-    document.getElementById('start').addEventListener('click',begin);
-    document.getElementById('replay').addEventListener('click',begin);
-  </script>
-</body>
-</html>
+</head><body><main class="experience">
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div><div class="grain"></div>
+<section class="quiz-shell" id="quiz"><div class="quiz-progress" aria-label="Perguntas de desbloqueio"><span class="progress-label">uma coisinha antes...</span><span class="progress-count" id="progress">01 / 02</span></div>
+<div class="quiz-card quiz-enter" id="q1"><span class="quiz-kicker">acesso exclusivo</span><h1>Esse site foi feito única e exclusivamente para uma pessoa.</h1><p class="quiz-lead">Se for você, certamente marcará a alternativa correta.</p>
+<div class="answer-list" id="identity-list"><button class="answer-option wrong"><span>A</span>Clara Maria</button><button class="answer-option wrong"><span>B</span>Marian</button><button class="answer-option" id="identity-correct"><span>C</span>Amorzinho da vida de quem fez o site</button></div>
+<p class="quiz-feedback" id="identity-feedback">acho que esse site ainda n é seu... tenta de novo 👀</p></div>
+<div class="quiz-card quiz-enter hidden" id="q2"><span class="quiz-kicker">última pergunta</span><h1>Se a beleza de Maria Clara fosse definida em uma nota, qual seria?</h1><p class="quiz-lead">Escolha com cuidado.</p>
+<div class="note-grid"><button class="note-option" data-note="5"><span>A</span>5</button><button class="note-option" data-note="7"><span>B</span>7</button><button class="note-option" data-note="8"><span>C</span>8</button><button class="note-option" data-note="10"><span>D</span>10</button></div>
+<p class="note-hint hidden" id="note-hint"></p><div class="infinity-reveal hidden" id="reveal"><p>Nenhuma nota é capaz de definir o quão bela você é, meu amor.</p><button class="infinity-button" id="unlock" aria-label="Infinito"><span>∞</span><small>essa é a resposta certa</small></button></div></div></section>
+<section class="intro hidden" id="intro" aria-labelledby="intro-title"><span class="tiny-heart" aria-hidden="true">♥</span><p class="eyebrow">acesso liberado</p><h1 id="intro-title">Só porque pensei em você.</h1><button class="start-button" id="start"><span>toque para abrir</span><span class="button-arrow" aria-hidden="true">→</span></button></section>
+<section class="garden hidden" id="garden" aria-live="polite"><p class="growing-copy">um carinho está florescendo...</p><div class="flower-scene" aria-hidden="true"><div class="ground-shadow"></div><div class="stem"><div class="leaf leaf-left"></div><div class="leaf leaf-right"></div></div><div class="flower-head"><span class="petal" style="--angle:0deg;--delay:3.15s"></span><span class="petal" style="--angle:30deg;--delay:3.26s"></span><span class="petal" style="--angle:60deg;--delay:3.37s"></span><span class="petal" style="--angle:90deg;--delay:3.48s"></span><span class="petal" style="--angle:120deg;--delay:3.59s"></span><span class="petal" style="--angle:150deg;--delay:3.70s"></span><span class="petal" style="--angle:180deg;--delay:3.81s"></span><span class="petal" style="--angle:210deg;--delay:3.92s"></span><span class="petal" style="--angle:240deg;--delay:4.03s"></span><span class="petal" style="--angle:270deg;--delay:4.14s"></span><span class="petal" style="--angle:300deg;--delay:4.25s"></span><span class="petal" style="--angle:330deg;--delay:4.36s"></span><span class="flower-center"></span></div><span class="spark spark-one">✦</span><span class="spark spark-two">✦</span><span class="spark spark-three">·</span></div>
+<div class="message" id="message"><p class="love-note">eu te amo.</p><p class="letter">N precisava ser uma data especial. Eu só queria te lembrar que vc deixa meus dias mais bonitos e que ter vc na minha vida é uma das coisas que eu mais amo. Espero que essa flor consiga arrancar pelo menos um sorrisinho seu hoje. <span>♥</span></p><button class="replay" id="replay">ver de novo ↻</button></div></section>
+</main><script>
+const q1=document.getElementById('q1'),q2=document.getElementById('q2'),quiz=document.getElementById('quiz'),intro=document.getElementById('intro'),garden=document.getElementById('garden'),message=document.getElementById('message'),feedback=document.getElementById('identity-feedback'),list=document.getElementById('identity-list'),hint=document.getElementById('note-hint'),reveal=document.getElementById('reveal');
+let flowerTimer;const tried=new Set();
+document.querySelectorAll('.wrong').forEach(b=>b.addEventListener('click',()=>{feedback.classList.add('is-visible');list.classList.remove('has-error');void list.offsetWidth;list.classList.add('has-error')}));
+document.getElementById('identity-correct').addEventListener('click',()=>{q1.classList.add('hidden');q2.classList.remove('hidden');document.getElementById('progress').textContent='02 / 02'});
+document.querySelectorAll('.note-option').forEach(b=>b.addEventListener('click',()=>{const n=b.dataset.note;tried.add(n);b.disabled=true;b.classList.add('was-tried');if(tried.size<4){hint.classList.remove('hidden');hint.textContent=tried.size===1?'essa nota ainda é pequena demais...':tried.size===2?'continua n sendo suficiente...':'falta só uma tentativa 👀'}else{hint.classList.add('hidden');reveal.classList.remove('hidden')}}));
+document.getElementById('unlock').addEventListener('click',()=>{quiz.classList.add('hidden');intro.classList.remove('hidden')});
+function begin(){clearTimeout(flowerTimer);message.classList.remove('is-visible');intro.classList.add('hidden');garden.classList.add('hidden');void garden.offsetWidth;garden.classList.remove('hidden');flowerTimer=setTimeout(()=>message.classList.add('is-visible'),7600)}
+document.getElementById('start').addEventListener('click',begin);document.getElementById('replay').addEventListener('click',begin);
+</script></body></html>
