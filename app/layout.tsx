@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Uma Flor para Você",
+  title: "Uma flor para uma flor",
   description: "Uma pequena surpresa feita com carinho.",
   other: {
     "codex-preview": "development",
