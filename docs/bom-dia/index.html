@@ -47,8 +47,8 @@
       24:{text:'Segunda costuma chegar fazendo barulho, então aqui vai uma coisa simples: começa pelo que tá na sua frente. Vc n precisa ter todas as respostas agora, só precisa dar o primeiro passo.',sign:'E capacidade pra isso vc tem de sobra.'},
       25:{text:'Caso o dia tente fazer vc duvidar de si, lembra que cansaço n é falta de capacidade. Vc pode estar cansada e ainda continuar sendo inteligente, forte e muito boa no que faz.',sign:'N confunde um momento ruim com quem vc é.'},
       26:{text:'Nem tudo precisa sair perfeito pra ter sido bem feito. Vc se cobra como se qualquer erro apagasse todo o resto, mas n apaga. Seu esforço, sua inteligência e tudo que vc já conseguiu continuam aí.',sign:'Se trata com a mesma paciência que oferece pros outros.'},
-      27:{text:'Se o plano mudar hoje, n significa que o dia deu errado. Às vezes vc só encontrou outro caminho. Se adapta, respira e segue — isso também é saber o que tá fazendo.',sign:'Confia mais em vc.'},
-      28:{text:'Chegou sexta de novo. Espero que hoje o relógio colabore, o trabalho n invente moda e vc consiga terminar o dia com a sensação de que fez o que dava — porque isso já é suficiente.',sign:'Que apareça um motivo inesperado pra sorrir.'},
+      27:{text:'Se o plano mudar hoje, n significa que o dia deu errado. Às vezes vc só encontrou outro caminho. Se adapta, respira e segue , isso também é saber o que tá fazendo.',sign:'Confia mais em vc.'},
+      28:{text:'Chegou sexta de novo. Espero que hoje o relógio colabore, o trabalho n invente moda e vc consiga terminar o dia com a sensação de que fez o que dava , porque isso já é suficiente.',sign:'Que apareça um motivo inesperado pra sorrir.'},
       29:{text:'Sua inteligência n aparece só quando vc acerta. Ela aparece no jeito que vc aprende, percebe detalhes, muda de ideia e tenta de novo. É isso que faz vc ser tão capaz de verdade.',sign:'N esquece disso hoje.'},
       30:{text:'Último domingo do mês. N precisa transformar isso numa contagem do que faltou fazer. Olha também pro tanto de coisa que vc atravessou, resolveu e aprendeu sem nem perceber.',sign:'Seu mês foi maior que a sua lista de tarefas.'},
       31:{text:'Agosto acaba hoje, mas esses lembretes n vencem junto com o mês: vc continua sendo foda, inteligente e capaz. Que setembro encontre vc confiando um pouco mais na pessoa que já é.',sign:'Fim do calendário, n dos lembretes. ☀️'}
@@ -67,7 +67,7 @@
     }
     function openLetter(day){const data=letters[day];document.getElementById('letter-date').textContent=`${day} de agosto de 2026`;document.getElementById('letter-text').textContent=data.text;document.getElementById('letter-sign').textContent=data.sign;modal.classList.add('is-visible');document.getElementById('close').focus()}
     function closeLetter(){modal.classList.remove('is-visible')}
-    function showLocked(day){note.textContent=`calma aí — essa cartinha só acorda em ${String(day).padStart(2,'0')}/08 ☀️`;note.classList.add('is-visible');setTimeout(()=>note.classList.remove('is-visible'),2600)}
+    function showLocked(day){note.textContent=`calma aí , essa cartinha só acorda em ${String(day).padStart(2,'0')}/08 ☀️`;note.classList.add('is-visible');setTimeout(()=>note.classList.remove('is-visible'),2600)}
     document.getElementById('wake').addEventListener('click',()=>{morning.classList.add('is-awake');opening.classList.add('is-leaving');setTimeout(()=>{opening.style.display='none';screen.classList.add('is-visible')},2500)});
     document.getElementById('close').addEventListener('click',closeLetter);modal.addEventListener('click',e=>{if(e.target===modal)closeLetter()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLetter()});buildCalendar();
   </script>
