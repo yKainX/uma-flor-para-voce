@@ -2,351 +2,74 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f9b29c">
-  <meta name="description" content="Um bom dia feito especialmente para Maria Clara.">
-  <title>Bom dia, Maria Clara ☀️</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5a98f">
+  <meta name="description" content="Treze manhãs e treze cartinhas para Maria Clara.">
+  <title>13 manhãs para Maria Clara ☀️</title>
   <style>
-    :root {
-      --ink: #533846;
-      --rose: #d86f8d;
-      --rose-dark: #ad4568;
-      --paper: rgba(255, 251, 246, .82);
-      --shadow: rgba(84, 47, 66, .16);
-    }
-
-    * { box-sizing: border-box; }
-    html, body { min-height: 100%; }
-    body {
-      margin: 0;
-      overflow: hidden;
-      color: var(--ink);
-      background: #181a35;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    button { font: inherit; }
-
-    .morning {
-      position: relative;
-      min-height: 100svh;
-      overflow: hidden;
-      isolation: isolate;
-      background: linear-gradient(180deg, #17192f 0%, #383450 54%, #855b6c 100%);
-      transition: background 4.8s cubic-bezier(.2,.8,.2,1);
-    }
-    .morning.is-awake {
-      background: linear-gradient(180deg, #79bfe1 0%, #f8c1ae 55%, #ffe1b0 100%);
-    }
-
-    .stars { position: absolute; inset: 0; z-index: -4; transition: opacity 2.8s ease; }
-    .star {
-      position: absolute;
-      width: 3px;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: #fff9d7;
-      box-shadow: 0 0 9px rgba(255, 249, 215, .7);
-      animation: twinkle 2.4s ease-in-out infinite alternate;
-    }
-    .star:nth-child(2n) { width: 2px; animation-delay: -.8s; }
-    .star:nth-child(3n) { animation-delay: -1.5s; }
-    .is-awake .stars { opacity: 0; }
-
-    .sun {
-      position: absolute;
-      z-index: -3;
-      left: 50%;
-      bottom: -180px;
-      width: clamp(110px, 22vw, 190px);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      transform: translateX(-50%);
-      opacity: .15;
-      background: radial-gradient(circle at 42% 38%, #fffceb 0 13%, #ffe99c 38%, #ffc771 72%);
-      box-shadow: 0 0 45px rgba(255, 215, 130, .25), 0 0 150px rgba(255, 192, 111, .14);
-      transition: bottom 5s cubic-bezier(.16,.8,.25,1), opacity 3s ease, box-shadow 4s ease;
-    }
-    .is-awake .sun {
-      bottom: 38vh;
-      opacity: 1;
-      box-shadow: 0 0 55px rgba(255, 239, 177, .85), 0 0 180px rgba(255, 192, 111, .55);
-    }
-    .sun-rays {
-      position: absolute;
-      inset: -55px;
-      border-radius: 50%;
-      background: repeating-conic-gradient(from 0deg, rgba(255,245,193,.22) 0deg 7deg, transparent 7deg 22deg);
-      animation: rays 22s linear infinite;
-    }
-
-    .cloud {
-      position: absolute;
-      z-index: -2;
-      width: 170px;
-      height: 46px;
-      border-radius: 999px;
-      opacity: .18;
-      background: #fff;
-      filter: blur(.2px);
-      transition: opacity 3s ease;
-    }
-    .cloud::before, .cloud::after {
-      content: "";
-      position: absolute;
-      bottom: 8px;
-      border-radius: 50%;
-      background: inherit;
-    }
-    .cloud::before { left: 31px; width: 70px; height: 70px; }
-    .cloud::after { right: 24px; width: 54px; height: 54px; }
-    .cloud-one { top: 24%; left: -190px; animation: drift 28s linear infinite; }
-    .cloud-two { top: 42%; left: -230px; width: 125px; transform: scale(.7); animation: drift 34s 9s linear infinite; }
-    .is-awake .cloud { opacity: .46; }
-
-    .hills { position: absolute; z-index: -1; inset: auto 0 0; height: 31vh; }
-    .hill { position: absolute; bottom: -19vh; border-radius: 50% 50% 0 0; transition: background 4.8s ease; }
-    .hill-back { left: -13%; width: 75%; height: 42vh; background: #363949; transform: rotate(7deg); }
-    .hill-front { right: -16%; width: 86%; height: 48vh; background: #292e3d; transform: rotate(-6deg); }
-    .is-awake .hill-back { background: #769172; }
-    .is-awake .hill-front { background: #516e59; }
-
-    .flowers { position: absolute; inset: auto 0 0; z-index: 1; height: 20vh; pointer-events: none; }
-    .mini-flower { position: absolute; bottom: -40px; width: 3px; height: var(--h); border-radius: 99px; background: #3f6249; transform-origin: bottom; transition: bottom 1.2s var(--delay) cubic-bezier(.2,.9,.2,1); }
-    .mini-flower::before {
-      content: "";
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      left: -7px;
-      top: -7px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #f7d36c 0 25%, #f8b8c9 27% 62%, #e47c9d 64%);
-      box-shadow: 0 0 10px rgba(255, 219, 176, .28);
-    }
-    .is-awake .mini-flower { bottom: 0; }
-
-    .stage {
-      min-height: 100svh;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-    }
-    .card {
-      width: min(620px, 100%);
-      padding: clamp(28px, 6vw, 54px);
-      border: 1px solid rgba(255,255,255,.28);
-      border-radius: 34px;
-      text-align: center;
-      background: rgba(255,255,255,.08);
-      box-shadow: 0 28px 80px rgba(12, 14, 30, .2);
-      backdrop-filter: blur(15px);
-      transition: background 3s ease, border-color 3s ease, transform .7s ease, opacity .7s ease;
-    }
-    .is-awake .card { background: var(--paper); border-color: rgba(255,255,255,.62); box-shadow: 0 28px 80px var(--shadow); }
-    .card.is-leaving { opacity: 0; transform: translateY(-18px) scale(.98); }
-    .eyebrow {
-      margin: 0 0 16px;
-      color: #f1c6d0;
-      font-size: .68rem;
-      font-weight: 700;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      transition: color 3s ease;
-    }
-    .is-awake .eyebrow { color: #a45c75; }
-    h1 {
-      margin: 0;
-      color: #fffaf2;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.7rem, 10vw, 5.2rem);
-      font-weight: 400;
-      line-height: .98;
-      letter-spacing: -.055em;
-      transition: color 3s ease;
-    }
-    .is-awake h1 { color: var(--rose-dark); }
-    .lead {
-      max-width: 440px;
-      margin: 21px auto 31px;
-      color: rgba(255,255,255,.72);
-      font-size: .93rem;
-      line-height: 1.7;
-      transition: color 3s ease;
-    }
-    .is-awake .lead { color: #755865; }
-    .primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 15px;
-      padding: 10px 13px 10px 21px;
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 999px;
-      color: #fff;
-      background: rgba(255,255,255,.1);
-      cursor: pointer;
-      transition: transform .25s ease, background .25s ease, color 3s ease;
-    }
-    .primary:hover { transform: translateY(-2px); background: rgba(255,255,255,.18); }
-    .primary:focus-visible, .reminder:focus-visible { outline: 3px solid rgba(255,255,255,.85); outline-offset: 4px; }
-    .is-awake .primary { color: white; border-color: rgba(184,73,108,.16); background: var(--rose); }
-    .primary-icon { display: grid; place-items: center; width: 33px; aspect-ratio: 1; border-radius: 50%; color: #6d4956; background: #fff9dc; }
-
-    .greeting { display: none; opacity: 0; transform: translateY(16px); }
-    .greeting.is-visible { display: block; animation: reveal .9s ease forwards; }
-    .date-line { margin: 0 0 17px; color: #a9677d; font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
-    .greeting h1 { font-size: clamp(2.5rem, 9vw, 4.6rem); }
-    .greeting-copy { margin: 19px auto 26px; max-width: 460px; color: #725762; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.02rem, 3.5vw, 1.22rem); font-style: italic; line-height: 1.65; }
-    .reminder-title { margin: 0 0 13px; color: #9f667a; font-size: .68rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
-    .reminders { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
-    .reminder {
-      min-height: 82px;
-      padding: 12px 8px;
-      border: 1px solid rgba(174,77,111,.15);
-      border-radius: 18px;
-      color: #8e5368;
-      background: rgba(255,255,255,.56);
-      cursor: pointer;
-      transition: transform .25s ease, background .25s ease, color .25s ease;
-    }
-    .reminder:hover { transform: translateY(-2px); background: #fff; }
-    .reminder.is-open { color: white; background: var(--rose); transform: translateY(-2px); }
-    .reminder .closed { display: block; font-size: 1.3rem; }
-    .reminder .opened { display: none; font-size: .75rem; font-weight: 700; line-height: 1.35; }
-    .reminder.is-open .closed { display: none; }
-    .reminder.is-open .opened { display: block; animation: pop .35s ease; }
-    .final-button { display: none; margin-top: 20px; }
-    .final-button.is-visible { display: inline-flex; animation: reveal .7s ease both; }
-
-    .letter-screen {
-      display: none;
-      position: absolute;
-      inset: 0;
-      z-index: 6;
-      place-items: center;
-      padding: 24px;
-      opacity: 0;
-      background: rgba(255, 239, 224, .64);
-      backdrop-filter: blur(18px);
-    }
-    .letter-screen.is-visible { display: grid; animation: fade .9s ease forwards; }
-    .letter-card {
-      width: min(590px, 100%);
-      padding: clamp(30px, 7vw, 58px);
-      border: 1px solid rgba(180,91,121,.13);
-      border-radius: 8px 38px 8px 38px;
-      background: #fffaf4;
-      box-shadow: 0 28px 90px rgba(115,68,82,.16);
-      transform: rotate(-.5deg);
-    }
-    .letter-card::before { content: "☀"; display: block; margin-bottom: 18px; color: #e7a857; font-size: 1.7rem; }
-    .letter-card h2 { margin: 0 0 20px; color: var(--rose-dark); font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.1rem, 7vw, 3.7rem); font-weight: 400; line-height: 1; letter-spacing: -.04em; }
-    .letter-card p { margin: 0; color: #664e58; font-size: clamp(.94rem, 3vw, 1.06rem); line-height: 1.85; }
-    .signature { display: block; margin-top: 23px; color: var(--rose); font-family: Georgia, "Times New Roman", serif; font-size: 1.15rem; font-style: italic; }
-    .again { margin-top: 26px; padding: 8px 0; border: 0; border-bottom: 1px solid rgba(93,62,75,.25); color: #8a6976; background: transparent; cursor: pointer; font-size: .7rem; letter-spacing: .1em; }
-
-    @keyframes twinkle { to { opacity: .25; transform: scale(.7); } }
-    @keyframes rays { to { transform: rotate(360deg); } }
-    @keyframes drift { from { transform: translateX(0); } to { transform: translateX(calc(100vw + 420px)); } }
-    @keyframes reveal { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @keyframes fade { to { opacity: 1; } }
-    @keyframes pop { from { opacity: 0; transform: scale(.8); } }
-
-    @media (max-width: 560px) {
-      .stage { align-items: center; padding: 18px; }
-      .card { padding: 29px 18px; border-radius: 27px; }
-      .reminders { grid-template-columns: 1fr; }
-      .reminder { min-height: 58px; }
-      .is-awake .sun { bottom: 50vh; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; }
-    }
+    :root{--ink:#503743;--muted:#8d6b79;--rose:#d86e8c;--rose-dark:#ae486a;--cream:#fff9f3;--peach:#f7b098;--gold:#e8ad58;--green:#506d58}
+    *{box-sizing:border-box}html,body{min-height:100%}body{margin:0;color:var(--ink);background:#181a35;font-family:Arial,Helvetica,sans-serif}button{font:inherit}
+    .morning{position:relative;min-height:100svh;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,#17192f 0%,#383450 54%,#855b6c 100%);transition:background 4.5s cubic-bezier(.2,.8,.2,1)}.morning.is-awake{background:linear-gradient(180deg,#78bddd 0%,#f5b7a5 55%,#ffe0af 100%)}
+    .stars{position:absolute;inset:0;z-index:-5;transition:opacity 2.6s ease}.star{position:absolute;width:3px;aspect-ratio:1;border-radius:50%;background:#fff9d7;box-shadow:0 0 9px rgba(255,249,215,.7);animation:twinkle 2.4s ease-in-out infinite alternate}.star:nth-child(2n){width:2px;animation-delay:-.8s}.star:nth-child(3n){animation-delay:-1.5s}.is-awake .stars{opacity:0}
+    .sun{position:absolute;z-index:-4;left:50%;bottom:-190px;width:clamp(110px,20vw,180px);aspect-ratio:1;border-radius:50%;transform:translateX(-50%);opacity:.15;background:radial-gradient(circle at 42% 38%,#fffceb 0 13%,#ffe99c 38%,#ffc771 72%);box-shadow:0 0 45px rgba(255,215,130,.25),0 0 150px rgba(255,192,111,.14);transition:bottom 4.7s cubic-bezier(.16,.8,.25,1),opacity 2.8s ease,box-shadow 4s ease}.is-awake .sun{bottom:56vh;opacity:1;box-shadow:0 0 55px rgba(255,239,177,.85),0 0 180px rgba(255,192,111,.55)}.sun::after{content:"";position:absolute;inset:-52px;border-radius:50%;background:repeating-conic-gradient(rgba(255,245,193,.22) 0deg 7deg,transparent 7deg 22deg);animation:rays 22s linear infinite}
+    .hill{position:absolute;z-index:-2;bottom:-23vh;border-radius:50% 50% 0 0;transition:background 4.5s ease}.hill-one{left:-14%;width:76%;height:43vh;background:#363949;transform:rotate(7deg)}.hill-two{right:-16%;width:86%;height:48vh;background:#292e3d;transform:rotate(-6deg)}.is-awake .hill-one{background:#789273}.is-awake .hill-two{background:var(--green)}
+    .cloud{position:absolute;z-index:-3;width:160px;height:43px;border-radius:999px;opacity:.15;background:#fff;transition:opacity 3s ease}.cloud::before,.cloud::after{content:"";position:absolute;bottom:7px;border-radius:50%;background:inherit}.cloud::before{left:30px;width:66px;height:66px}.cloud::after{right:22px;width:51px;height:51px}.cloud-one{top:20%;left:-190px;animation:drift 29s linear infinite}.cloud-two{top:39%;left:-230px;transform:scale(.72);animation:drift 36s 8s linear infinite}.is-awake .cloud{opacity:.42}
+    .grain{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.15;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E")}
+    .stage{min-height:100svh;display:grid;place-items:center;padding:24px}.opening{width:min(620px,100%);padding:clamp(30px,6vw,56px);border:1px solid rgba(255,255,255,.24);border-radius:34px;text-align:center;background:rgba(255,255,255,.08);box-shadow:0 28px 80px rgba(12,14,30,.2);backdrop-filter:blur(15px);transition:opacity .8s ease,transform .8s ease,background 3s ease}.is-awake .opening{background:rgba(255,251,246,.82)}.opening.is-leaving{opacity:0;transform:translateY(-18px) scale(.98)}
+    .eyebrow{margin:0 0 16px;color:#efc0cc;font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;transition:color 3s ease}.is-awake .eyebrow{color:#a45c75}h1{margin:0;color:#fffaf2;font-family:Georgia,"Times New Roman",serif;font-size:clamp(2.75rem,10vw,5.2rem);font-weight:400;line-height:.98;letter-spacing:-.055em;transition:color 3s ease}.is-awake h1{color:var(--rose-dark)}.lead{max-width:445px;margin:21px auto 31px;color:rgba(255,255,255,.72);font-size:.93rem;line-height:1.7;transition:color 3s ease}.is-awake .lead{color:#755865}
+    .primary{display:inline-flex;align-items:center;gap:15px;padding:10px 13px 10px 21px;border:1px solid rgba(255,255,255,.22);border-radius:999px;color:#fff;background:rgba(255,255,255,.1);cursor:pointer;transition:transform .25s ease,background .25s ease}.primary:hover{transform:translateY(-2px);background:rgba(255,255,255,.18)}.primary:focus-visible,.day-card:focus-visible,.close:focus-visible{outline:3px solid rgba(255,255,255,.9);outline-offset:4px}.primary-icon{display:grid;place-items:center;width:33px;aspect-ratio:1;border-radius:50%;color:#6d4956;background:#fff9dc}
+    .calendar-screen{display:none;width:min(920px,100%);max-height:calc(100svh - 28px);overflow:auto;padding:clamp(21px,4vw,38px);border:1px solid rgba(255,255,255,.5);border-radius:34px;background:rgba(255,250,245,.86);box-shadow:0 28px 90px rgba(88,52,69,.17);backdrop-filter:blur(18px);scrollbar-width:none;opacity:0;transform:translateY(18px)}.calendar-screen::-webkit-scrollbar{display:none}.calendar-screen.is-visible{display:block;animation:reveal .9s ease forwards}
+    .calendar-header{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:25px}.calendar-kicker{margin:0 0 7px;color:#a8667d;font-size:.66rem;font-weight:700;letter-spacing:.19em;text-transform:uppercase}.calendar-header h1{color:var(--rose-dark);font-size:clamp(2.35rem,7vw,4.2rem)}.calendar-subtitle{margin:11px 0 0;color:#80606d;font-family:Georgia,"Times New Roman",serif;font-size:1rem;font-style:italic}.progress{flex:0 0 auto;padding:9px 13px;border:1px solid rgba(174,72,106,.14);border-radius:999px;color:#9b5d73;background:rgba(255,255,255,.58);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.weekdays{margin-bottom:8px;color:#a47a89;font-size:.61rem;font-weight:700;letter-spacing:.1em;text-align:center;text-transform:uppercase}.calendar-grid{min-height:430px}.day-card{position:relative;min-height:78px;padding:11px;border:1px solid rgba(112,73,89,.1);border-radius:18px;color:#735764;background:rgba(255,255,255,.46);text-align:left;cursor:default;transition:transform .22s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease}.day-card.empty{visibility:hidden}.day-card.old{opacity:.28}.day-card.letter{cursor:pointer;background:rgba(255,255,255,.72)}.day-card.letter:hover{transform:translateY(-3px);border-color:rgba(202,91,128,.25);box-shadow:0 10px 25px rgba(115,66,83,.09)}.day-number{display:block;font-family:Georgia,"Times New Roman",serif;font-size:1.12rem}.day-label{position:absolute;left:11px;right:9px;bottom:10px;color:#a06b7d;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.day-card.locked{opacity:.58;background:rgba(244,236,235,.55)}.day-card.locked .day-label{color:#9c858d}.lock{position:absolute;right:10px;top:10px;font-size:.75rem;opacity:.6}.day-card.open{border-color:rgba(204,87,126,.24);background:linear-gradient(145deg,#fff,#fff0f2)}.day-card.open .day-number{color:var(--rose-dark)}.day-card.today::after{content:"hoje";position:absolute;right:9px;top:10px;padding:3px 6px;border-radius:99px;color:white;background:var(--rose);font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;animation:pulse 2s ease-in-out infinite}.locked-note{min-height:18px;margin:14px 0 0;color:#9d6479;text-align:center;font-size:.71rem;opacity:0;transition:opacity .25s ease}.locked-note.is-visible{opacity:1}
+    .letter-modal{display:none;position:fixed;inset:0;z-index:20;place-items:center;padding:20px;background:rgba(57,37,48,.48);backdrop-filter:blur(13px);opacity:0}.letter-modal.is-visible{display:grid;animation:fade .45s ease forwards}.letter-paper{position:relative;width:min(570px,100%);max-height:calc(100svh - 40px);overflow:auto;padding:clamp(32px,7vw,58px);border:1px solid rgba(174,83,114,.13);border-radius:8px 38px 8px 38px;background:#fffaf4;box-shadow:0 30px 100px rgba(58,32,44,.24);transform:rotate(-.4deg);scrollbar-width:none}.letter-paper::-webkit-scrollbar{display:none}.letter-date{margin:0 0 14px;color:#b06d83;font-size:.66rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase}.letter-paper h2{margin:0 0 23px;color:var(--rose-dark);font-family:Georgia,"Times New Roman",serif;font-size:clamp(2.1rem,8vw,3.7rem);font-weight:400;line-height:1;letter-spacing:-.045em}.letter-text{margin:0;color:#624c55;font-size:clamp(.95rem,3vw,1.08rem);line-height:1.85}.letter-sign{display:block;margin-top:24px;color:var(--rose);font-family:Georgia,"Times New Roman",serif;font-size:1.03rem;font-style:italic}.close{position:absolute;right:16px;top:15px;width:34px;aspect-ratio:1;border:0;border-radius:50%;color:#9b6779;background:#f8e8eb;cursor:pointer;font-size:1rem}
+    @keyframes twinkle{to{opacity:.25;transform:scale(.7)}}@keyframes rays{to{transform:rotate(360deg)}}@keyframes drift{from{transform:translateX(0)}to{transform:translateX(calc(100vw + 420px))}}@keyframes reveal{to{opacity:1;transform:none}}@keyframes fade{to{opacity:1}}@keyframes pulse{50%{transform:scale(1.06)}}
+    @media(max-width:650px){body{overflow:auto}.stage{padding:14px}.opening,.calendar-screen{border-radius:27px}.calendar-header{align-items:start;flex-direction:column;gap:14px}.calendar-screen{max-height:none;margin:10px 0}.calendar-grid{min-height:0;gap:6px}.weekdays{gap:6px}.day-card{min-height:65px;padding:8px;border-radius:14px}.day-label{left:8px;bottom:8px;font-size:.48rem}.lock{right:7px;top:8px}.day-card.today::after{display:none}.sun{width:105px}.is-awake .sun{bottom:72vh}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}}
   </style>
 </head>
 <body>
   <main class="morning" id="morning">
-    <div class="stars" aria-hidden="true">
-      <i class="star" style="left:9%;top:14%"></i><i class="star" style="left:19%;top:32%"></i>
-      <i class="star" style="left:31%;top:12%"></i><i class="star" style="left:43%;top:25%"></i>
-      <i class="star" style="left:57%;top:10%"></i><i class="star" style="left:69%;top:31%"></i>
-      <i class="star" style="left:81%;top:17%"></i><i class="star" style="left:91%;top:38%"></i>
-      <i class="star" style="left:14%;top:52%"></i><i class="star" style="left:74%;top:52%"></i>
-    </div>
-    <div class="sun" aria-hidden="true"><div class="sun-rays"></div></div>
-    <div class="cloud cloud-one" aria-hidden="true"></div><div class="cloud cloud-two" aria-hidden="true"></div>
-    <div class="hills" aria-hidden="true"><div class="hill hill-back"></div><div class="hill hill-front"></div></div>
-    <div class="flowers" aria-hidden="true">
-      <i class="mini-flower" style="left:7%;--h:63px;--delay:3.6s"></i><i class="mini-flower" style="left:16%;--h:42px;--delay:4s"></i>
-      <i class="mini-flower" style="left:27%;--h:72px;--delay:3.8s"></i><i class="mini-flower" style="left:39%;--h:48px;--delay:4.2s"></i>
-      <i class="mini-flower" style="left:61%;--h:58px;--delay:3.7s"></i><i class="mini-flower" style="left:72%;--h:77px;--delay:4.1s"></i>
-      <i class="mini-flower" style="left:84%;--h:46px;--delay:3.9s"></i><i class="mini-flower" style="left:93%;--h:67px;--delay:4.3s"></i>
-    </div>
-
+    <div class="stars" aria-hidden="true"><i class="star" style="left:9%;top:14%"></i><i class="star" style="left:19%;top:32%"></i><i class="star" style="left:31%;top:12%"></i><i class="star" style="left:43%;top:25%"></i><i class="star" style="left:57%;top:10%"></i><i class="star" style="left:69%;top:31%"></i><i class="star" style="left:81%;top:17%"></i><i class="star" style="left:91%;top:38%"></i></div>
+    <div class="sun" aria-hidden="true"></div><div class="cloud cloud-one" aria-hidden="true"></div><div class="cloud cloud-two" aria-hidden="true"></div><div class="hill hill-one" aria-hidden="true"></div><div class="hill hill-two" aria-hidden="true"></div><div class="grain"></div>
     <section class="stage">
-      <div class="card" id="card">
-        <div id="start-screen">
-          <p class="eyebrow">antes do seu dia começar</p>
-          <h1>Tem uma manhã esperando por você.</h1>
-          <p class="lead">Ainda está meio escuro por aqui. Talvez esteja faltando alguém acordar o dia.</p>
-          <button class="primary" id="wake-button"><span>fazer o sol nascer</span><span class="primary-icon">☀</span></button>
-        </div>
-
-        <div class="greeting" id="greeting">
-          <p class="date-line" id="date-line">uma nova manhã</p>
-          <h1>Bom dia,<br>Maria Clara.</h1>
-          <p class="greeting-copy">O sol nasceu por aqui só pra te entregar três lembretes. Abra todos antes de ir.</p>
-          <p class="reminder-title">toque para guardar</p>
-          <div class="reminders">
-            <button class="reminder"><span class="closed">✦</span><span class="opened">vc é inteligente pra caralho</span></button>
-            <button class="reminder"><span class="closed">♡</span><span class="opened">vc é capaz, até quando duvida</span></button>
-            <button class="reminder"><span class="closed">☀</span><span class="opened">um dia difícil n diminui quem vc é</span></button>
-          </div>
-          <button class="primary final-button" id="letter-button"><span>abrir seu bom dia</span><span class="primary-icon">→</span></button>
-        </div>
-      </div>
+      <div class="opening" id="opening"><p class="eyebrow">de 19 a 31 de agosto</p><h1>Treze manhãs esperando por você.</h1><p class="lead">Tem uma cartinha nova guardada em cada dia. Mas sem roubar: cada uma acorda na sua própria manhã.</p><button class="primary" id="wake"><span>fazer o dia nascer</span><span class="primary-icon">☀</span></button></div>
+      <div class="calendar-screen" id="calendar-screen"><header class="calendar-header"><div><p class="calendar-kicker">13 manhãs para Maria Clara</p><h1>Agosto, 2026</h1><p class="calendar-subtitle">uma cartinha nova acorda a cada manhã</p></div><span class="progress" id="progress">1 de 13 abertas</span></header><div class="weekdays" aria-hidden="true"><span>seg</span><span>ter</span><span>qua</span><span>qui</span><span>sex</span><span>sáb</span><span>dom</span></div><div class="calendar-grid" id="calendar-grid" aria-label="Calendário de agosto de 2026"></div><p class="locked-note" id="locked-note" aria-live="polite"></p></div>
     </section>
-
-    <section class="letter-screen" id="letter-screen" aria-live="polite">
-      <div class="letter-card">
-        <h2>Bom dia, Maria Clara.</h2>
-        <p>Essa página é só um lembrete pra vc começar o dia sabendo que é inteligente, capaz e incrível. Espero que seu trabalho seja leve e que dê tudo certo hoje. E se n der, lembra: um dia difícil n diminui quem vc é.</p>
-        <span class="signature">Que seu dia seja bonito. ☀️</span>
-        <button class="again" id="again">ver o amanhecer de novo ↻</button>
-      </div>
-    </section>
+    <div class="letter-modal" id="letter-modal" role="dialog" aria-modal="true" aria-labelledby="letter-title"><article class="letter-paper"><button class="close" id="close" aria-label="Fechar cartinha">×</button><p class="letter-date" id="letter-date"></p><h2 id="letter-title">Bom dia, Maria Clara.</h2><p class="letter-text" id="letter-text"></p><span class="letter-sign" id="letter-sign"></span></article></div>
   </main>
-
   <script>
-    const morning = document.getElementById('morning');
-    const card = document.getElementById('card');
-    const startScreen = document.getElementById('start-screen');
-    const greeting = document.getElementById('greeting');
-    const letterButton = document.getElementById('letter-button');
-    const letterScreen = document.getElementById('letter-screen');
-    const reminders = [...document.querySelectorAll('.reminder')];
-    const opened = new Set();
-
-    const formattedDate = new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
-    document.getElementById('date-line').textContent = formattedDate;
-
-    document.getElementById('wake-button').addEventListener('click', () => {
-      morning.classList.add('is-awake');
-      card.classList.add('is-leaving');
-      setTimeout(() => {
-        startScreen.style.display = 'none';
-        card.classList.remove('is-leaving');
-        greeting.classList.add('is-visible');
-      }, 2850);
-    });
-
-    reminders.forEach((button, index) => button.addEventListener('click', () => {
-      button.classList.add('is-open');
-      opened.add(index);
-      if (opened.size === reminders.length) letterButton.classList.add('is-visible');
-    }));
-
-    letterButton.addEventListener('click', () => letterScreen.classList.add('is-visible'));
-    document.getElementById('again').addEventListener('click', () => location.reload());
+    const letters={
+      19:{text:'Hoje n precisa começar tentando dar conta de tudo de uma vez. Vai no seu ritmo, faz uma coisa por vez e n esquece que vc é muito mais capaz do que pensa quando acorda cansada.',sign:'Só um lembrete pra começar bem. ☀️'},
+      20:{text:'Tem muito esforço seu que ninguém vê, mas isso n faz ele valer menos. Vc continua sendo uma mulher foda, inteligente e dedicada até nos dias em que só vc sabe o quanto custou continuar.',sign:'Que hoje seja mais leve com vc.'},
+      21:{text:'Sexta chegou, mas o melhor do dia n precisa ser ele acabar. Espero que aconteça alguma coisinha boa no meio da rotina e faça vc pensar: tá, isso aqui valeu a pena.',sign:'Bom trabalho e um dia bonito.'},
+      22:{text:'Hoje é sábado. Então fica oficialmente permitido n resolver a vida inteira antes do almoço. Descansa a cabeça, aproveita o que der e deixa o resto esperar um pouco.',sign:'Vc também merece dias sem cobrança.'},
+      23:{text:'Domingo n precisa render pra ser um dia bom. Se hoje só der pra respirar, organizar algumas coisas e ficar em paz, já tá ótimo. Nem todo dia precisa provar alguma coisa.',sign:'Vai com calma hoje.'},
+      24:{text:'Segunda costuma chegar fazendo barulho, então aqui vai uma coisa simples: começa pelo que tá na sua frente. Vc n precisa ter todas as respostas agora, só precisa dar o primeiro passo.',sign:'E capacidade pra isso vc tem de sobra.'},
+      25:{text:'Caso o dia tente fazer vc duvidar de si, lembra que cansaço n é falta de capacidade. Vc pode estar cansada e ainda continuar sendo inteligente, forte e muito boa no que faz.',sign:'N confunde um momento ruim com quem vc é.'},
+      26:{text:'Nem tudo precisa sair perfeito pra ter sido bem feito. Vc se cobra como se qualquer erro apagasse todo o resto, mas n apaga. Seu esforço, sua inteligência e tudo que vc já conseguiu continuam aí.',sign:'Se trata com a mesma paciência que oferece pros outros.'},
+      27:{text:'Se o plano mudar hoje, n significa que o dia deu errado. Às vezes vc só encontrou outro caminho. Se adapta, respira e segue — isso também é saber o que tá fazendo.',sign:'Confia mais em vc.'},
+      28:{text:'Chegou sexta de novo. Espero que hoje o relógio colabore, o trabalho n invente moda e vc consiga terminar o dia com a sensação de que fez o que dava — porque isso já é suficiente.',sign:'Que apareça um motivo inesperado pra sorrir.'},
+      29:{text:'Sua inteligência n aparece só quando vc acerta. Ela aparece no jeito que vc aprende, percebe detalhes, muda de ideia e tenta de novo. É isso que faz vc ser tão capaz de verdade.',sign:'N esquece disso hoje.'},
+      30:{text:'Último domingo do mês. N precisa transformar isso numa contagem do que faltou fazer. Olha também pro tanto de coisa que vc atravessou, resolveu e aprendeu sem nem perceber.',sign:'Seu mês foi maior que a sua lista de tarefas.'},
+      31:{text:'Agosto acaba hoje, mas esses lembretes n vencem junto com o mês: vc continua sendo foda, inteligente e capaz. Que setembro encontre vc confiando um pouco mais na pessoa que já é.',sign:'Fim do calendário, n dos lembretes. ☀️'}
+    };
+    const morning=document.getElementById('morning'),opening=document.getElementById('opening'),screen=document.getElementById('calendar-screen'),grid=document.getElementById('calendar-grid'),note=document.getElementById('locked-note'),modal=document.getElementById('letter-modal');
+    const now=new Date(),todayKey=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate();
+    const unlockedDays=Object.keys(letters).map(Number).filter(day=>todayKey>=20260800+day);
+    function buildCalendar(){
+      for(let i=0;i<5;i++){const blank=document.createElement('span');blank.className='day-card empty';grid.appendChild(blank)}
+      for(let day=1;day<=31;day++){
+        const button=document.createElement('button');button.className='day-card';button.type='button';button.innerHTML=`<span class="day-number">${day}</span>`;
+        if(day<19){button.classList.add('old');button.setAttribute('aria-label',`${day} de agosto, antes das cartinhas`)}
+        else{const key=20260800+day,isOpen=todayKey>=key;button.classList.add('letter',isOpen?'open':'locked');button.setAttribute('aria-label',`${day} de agosto, cartinha ${isOpen?'aberta':'trancada'}`);button.innerHTML+=isOpen?'<span class="day-label">abrir carta</span>':'<span class="lock">⌁</span><span class="day-label">ainda dormindo</span>';if(todayKey===key)button.classList.add('today');button.addEventListener('click',()=>isOpen?openLetter(day):showLocked(day))}grid.appendChild(button)
+      }
+      document.getElementById('progress').textContent=`${Math.min(unlockedDays.length,13)} de 13 abertas`;
+    }
+    function openLetter(day){const data=letters[day];document.getElementById('letter-date').textContent=`${day} de agosto de 2026`;document.getElementById('letter-text').textContent=data.text;document.getElementById('letter-sign').textContent=data.sign;modal.classList.add('is-visible');document.getElementById('close').focus()}
+    function closeLetter(){modal.classList.remove('is-visible')}
+    function showLocked(day){note.textContent=`calma aí — essa cartinha só acorda em ${String(day).padStart(2,'0')}/08 ☀️`;note.classList.add('is-visible');setTimeout(()=>note.classList.remove('is-visible'),2600)}
+    document.getElementById('wake').addEventListener('click',()=>{morning.classList.add('is-awake');opening.classList.add('is-leaving');setTimeout(()=>{opening.style.display='none';screen.classList.add('is-visible')},2500)});
+    document.getElementById('close').addEventListener('click',closeLetter);modal.addEventListener('click',e=>{if(e.target===modal)closeLetter()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLetter()});buildCalendar();
   </script>
 </body>
 </html>
